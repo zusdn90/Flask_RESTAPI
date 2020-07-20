@@ -39,6 +39,15 @@ CREATE TABLE Paient_Alert_Info(
 ```
 
 ## 3. REST API URI 설계
-### ● http://localhost:5000/api/users  		 (GET)
-### ● http://localhost:5000/api/users/:date  (GET)
+### ● http://localhost:5000/api/database/datas (POST) -데이터 생성
+### ● http://localhost:5000/api/database       (POST) -데이터 저장
+
+### ● http://localhost:5000/api/users  		 (GET)    -입원 환자 전체 리스트 조회
+### ● http://localhost:5000/api/users/:date  (GET)    -특정기간 내 인원 환자 리스트 조회
+### ● http://localhost:5000/api/users        (POST)   -입원환자 추가
+### ● http://localhost:5000/api/users/:id    (PUT)    -입원환자 정보 업데이트
+### ● http://localhost:5000/api/users/:id    (DELETE) -입원환자 삭제
+
+
+
 
