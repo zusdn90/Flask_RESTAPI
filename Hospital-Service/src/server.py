@@ -1,10 +1,19 @@
-from flask import Flask, request, Blueprint
+from flask import Flask, request, Blueprint, jsonify
 from flask_restplus import Resource, Api
 from flask_restful import reqparse
 from flaskext.mysql import MySQL
 from flask_cors import CORS
 
-app = Flask(__name__)
+from modules.control import user
+from modules.control import database
+
+from modules.rest.ns_user import api as user_api
+from modules.setting import dbConnector
+
+
+# ============================ init Flask config ============================
+
+app = Flask(__name__, static_folder='static', template_folder='template')
 
 cors = CORS(app, resources={
   r"/api/*": {"origin": "*"},
@@ -13,46 +22,26 @@ cors = CORS(app, resources={
 blueprint = Blueprint('api', __name__, url_prefix='/api')
 
 
-api = Api(blueprint, version= 1.0, 
+api = Api(blueprint, doc='/doc/', version= 1.0, 
           title='HOSPITAL API', description='HOSPITAL REST API')
 
-# DB(Mysql) 연결
-mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'matrix_hhw'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'matrix_hhw'
-app.config['MYSQL_DATABASE_DB'] = 'matrix_hhw'
-app.config['MYSQL_DATABASE_HOST'] = '192.168.0.50'
-mysql.init_app(app)
-
+api.add_namespace(user_api)
 
 app.register_blueprint(blueprint)
 
+@app.route('/', methods=['GET'])
+def index():
+    return "Index Page..."
 
 
+@app.route('/users', methods=['GET'])
+def select():
+    db_class = dbConnector.Database()
+    sql = "select * from Patient"
+    data = db_class.executeAll(sql)
 
-class CreatUser(Resource):
-    def post(self):
-        try:
-            parser = reqparse.RequestParser()
-            parser.add_argument('patient_code', type=int)
-            parser.add_argument('patient_name', type=str)
-            parser.add_argument('patient_age', type=str)
-            parser.add_argument('alert_info', type=str)
-            args = parser.parse_args()
+    return jsonify(data)
 
-            _userCode = args['patient_code']
-            _userName = args['patient_name']
-            _userAge = args['patient_age']
-            _alertInfo = args['alert_info']
-
-            
-            #return {'Email': args['email'], 'UserName': args['user_name'], 'Password': args['password']}
-
-        except Exception as e:
-            return {'error': str(e)}
-
-
-api.add_resource(CreatUser, '/user')
 
 if __name__ == '__main__':
     app.run(debug=True)
