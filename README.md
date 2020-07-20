@@ -40,4 +40,5 @@ CREATE TABLE Paient_Alert_Info(
 
 ## 3. REST API URI 설계
 ### ● http://localhost:5000/api/users  		 (GET)
-### ● http://localhost:5000/api/users/:code  (GET)
+### ● http://localhost:5000/api/users/:date  (GET)
+
