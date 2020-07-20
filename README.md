@@ -12,7 +12,7 @@ CREATE TABLE Patient(
     patient_code      INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     patient_name      VARCHAR(10) NOT NULL ,
     patient_age       VARCHAR(10) NOT NULL ,
-    alert_info        VARCHAR(10) NOT NULL ,
+    alert_info        VARCHAR(10) ,
     admission_date    datetime NOT NULL
 ) CHARSET=utf8;
 
@@ -21,9 +21,10 @@ CREATE TABLE Patient(
 ```
 /* 바이탈 정보 테이블 */
 CREATE TABLE Vital_Info(
-    patient_code      INT NOT NULL PRIMARY KEY,
-    vital_kinds       VARCHAR(20),
-    vital_value       INT(50),
+    patient_code     INT NOT NULL PRIMARY KEY,
+    vital_code       VARCHAR(20),
+    vital_name       VARCHAR(20),
+    vital_value      INT(50),
     create_date       datetime NOT NULL
 ) CHARSET=utf8;
 ```
@@ -32,7 +33,7 @@ CREATE TABLE Vital_Info(
 /* 알람 정보 테이블 */
 CREATE TABLE Alert_Info(
     patient_code      INT NOT NULL PRIMARY KEY,
-    alert_info        VARCHAR(10) NOT NULL,
+    alert_info        VARCHAR(10),
     period_date       datetime NOT NULL
 ) CHARSET=utf8;
 
