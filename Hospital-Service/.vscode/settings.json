@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\HONG\\Anaconda3\\python.exe"
+    "python.pythonPath": "C:\\Python\\Python36-64\\python.exe",
+    "python.linting.pylintPath": "c:\\Python\\Venv\\Tensorflow\\Scripts\\pylint.exe"
 }

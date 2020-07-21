@@ -21,12 +21,7 @@ class Result(object):
         self.stdout = stdout
         self.stderr = stderr
 
-
-
-class Package(object):
-
-    def __init__(self):
-        pass
+class Package:
 
     def insert_random_data(self):
         try:
@@ -69,4 +64,4 @@ class Package(object):
 
 
     # 5분마다 100개의 랜덤 데이터 생성(1. 환자 입원  2. 입원 환자의 바이탈 수치 변화)
-    schedule.every(5).minute.do(insert_random_data)
+    #schedule.every(5).minute.do(insert_random_data)

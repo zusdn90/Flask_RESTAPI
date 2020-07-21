@@ -1,12 +1,12 @@
 import pymysql
 
-class Database(object):
+class Database:
     def __init__(self):
-        self.db = pymysql.connect(host = '127.0.0.1',
+        self.db = pymysql.connect(host = '192.168.0.50',
                      port = 3306,
-                     user='matrix',
-                     passwd = 'matrix',
-                     db = 'matrix',
+                     user='matrix_hhw',
+                     passwd = 'matrix_hhw',
+                     db = 'matrix_hhw',
                      charset = 'utf8')
         
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)
@@ -29,4 +29,7 @@ class Database(object):
 
     def commit(self):
         self.db.commit()
+
+    def close(self):
+        self.db.close()
 
