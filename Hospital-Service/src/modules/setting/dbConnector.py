@@ -2,12 +2,12 @@ import pymysql
 
 class Database:
     def __init__(self):
-        self.db = pymysql.connect(host = '192.168.0.50',
-                     port = 3306,
-                     user='matrix_hhw',
-                     passwd = 'matrix_hhw',
-                     db = 'matrix_hhw',
-                     charset = 'utf8')
+        self.db = pymysql.connect(host = '127.0.0.1',
+                                  port = 3306,
+                                  user='matrix',
+                                  passwd = 'matrix',
+                                  db = 'matrix',
+                                  charset = 'utf8')
         
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)
 
