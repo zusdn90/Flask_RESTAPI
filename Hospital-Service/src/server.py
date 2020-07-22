@@ -2,6 +2,9 @@ import os
 import sys, getopt
 import schedule
 import logging
+import schedule
+import time
+import requests
 
 from flask import Flask, request, Blueprint, jsonify, make_response, render_template
 from flask_restplus import Api, Resource
@@ -24,6 +27,8 @@ cors = CORS(app, resources={
 blueprint = Blueprint('api', __name__, url_prefix='/api/v01')
 api = Api(blueprint, doc='/doc/', version= 1.0, 
           title='HOSPITAL API', description='HOSPITAL REST API')
+
+#공통 으로 사용되는 API
 common = api.namespace('common', description='Common API')
 
 api.add_namespace(user_api)
@@ -35,7 +40,20 @@ app.register_blueprint(blueprint)
 def index():
     return "Index Page..."
 
-@common.route('/api/v01/*')
+@app.route('/start', methods=['GET'])
+def start_schedule():
+    # 10초에 한번씩 실행 
+    schedule.every(10).seconds.do(job)
+    
+    while True:
+        schedule.run_pending()
+    time.sleep(1)
+
+def job():
+    url = 'http://127.0.0.1:5002/api/v01/users'
+    response = requests.get(url=url)
+    logger.info_log("request get user list...")
+
 class HttpStatusResponse(Resource):
     @app.errorhandler(404)
     def notFoundError(self):        

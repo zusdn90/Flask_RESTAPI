@@ -19,17 +19,22 @@ USER API (Patient)
 
 @api.route('')
 class GetUsersInfo(Resource):    
+    @api.param('Date', 'Date')
     def get(self):
         try:            
-            sql = "select * from Patient"
+            parser.add_argument('Date', type=str, help='admisstion date')
+            params = parser.parse_args()
+            logger.info_log("params : " + str(params))
+
+            sql = "select patient_name from Patient"
             rows = db_class.executeAll(sql)
 
-            logger.info_log("[User List Data] : " + str(jsonify(rows)))
+            logger.info_log("[User List Data] : " + str(rows))
             
-            return jsonify(rows)
+            return {"status" : "200", "message": "Data select success..."}
 
         except Exception as e:            
-            logger.error_log(str(e))
+            logger.error_log(str(e))           
 
     @api.param('patient_code', 'patient code')
     @api.param('patient_name', 'patient name')
@@ -38,7 +43,6 @@ class GetUsersInfo(Resource):
     @api.param('alert_info', 'alert info')
     def post(self):
         try:
-
             parser.add_argument('patient_code', type=str, help='Patient code')
             parser.add_argument('patient_name', type=str, help='Patient name')
             parser.add_argument('vital_code', type=str, help='Vital code')
@@ -51,7 +55,7 @@ class GetUsersInfo(Resource):
             logger.info_log("Request data : " + str(data))
 
             sql = """\
-            insert into Patient (patient_code, patient_name, vital_code, vital_value, alert_info, admission_date) 
+            insert into Patient (patient_code, patient_name, vital_code, vital_value, alert_info, date) 
                     values ( %s, %s, %s, %s, %s, now())
             """
 

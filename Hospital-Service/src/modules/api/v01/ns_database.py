@@ -16,6 +16,7 @@ parser = reqparse.RequestParser()
 api = Namespace('datas', description = "DATABASE API")
 
 path = os.getcwd() + "/modules/data/"
+filename = 'generate_data.xlsx'
 
 """ 
 #################################################################
@@ -38,10 +39,12 @@ class CreateData(Resource):
         write_ws['E1'] = 'alert_info'
         write_ws['F1'] = 'admission_date'
 
+        vital_code = ['v01','v02','v03','v04','v05']
+
         for i in range(100):
             write_ws.append([str(i+1), faker.name(),'v01',faker.random_int(),'',faker.date_this_year()])
         
-        write_wb.save(path + 'generate_data.xlsx')
+        write_wb.save(path + filename)
 
         return {"status" : "200", "message": "Data create success..."}
 
@@ -53,7 +56,7 @@ class InsertData(Resource):
         try:
             sql = 'insert into Patient values(%s, %s, %s, %s, %s, %s)'
     
-            wb = load_workbook(path + '/generate_data.xlsx', data_only=True)
+            wb = load_workbook(path + filename, data_only=True)
             ws = wb['Sheet']
     
             iter_rows = iter(ws.rows)                
@@ -61,6 +64,8 @@ class InsertData(Resource):
                 
             for row in iter_rows:
                 db_class.execute(sql, (row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value))
+
+            wb.close()
             db_class.commit()
 
             return {"status" : "200", "message": "Data insert success..."}
