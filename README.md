@@ -14,7 +14,7 @@ CREATE TABLE Patient(
     vital_code              VARCHAR(20) ,                       /* 바이탈 코드 */
     vital_value             INT(50) ,                           /* 바이탈 수치 */
     alert_info              VARCHAR(20) ,                       /* 환자 알람 정보 */
-    admission_date          datetime NOT NULL                   /* 입원 날짜 */    
+    date                    datetime NOT NULL                   /* 입원 날짜 */    
 ) CHARSET=utf8;
 
 ```
