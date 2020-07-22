@@ -47,6 +47,9 @@ CREATE TABLE Paient_Alert_Info(
 ### ● http://localhost:5000/api/v01/users/id    (PUT)    -입원환자 정보 업데이트
 ### ● http://localhost:5000/api/v01/users/id    (DELETE) -입원환자 삭제
 
-## 4. sample data 생성
+## 4. Data 생성
 ### ● python faker 라이브러리 사용
+
+## 5. Test
+### ● pytest라이브러리로 unit test
 
