@@ -24,6 +24,16 @@ DATABASE API
 #################################################################
 """ 
 
+class Result(object):
+    returncode = 1
+    stdout = ""
+    stderr = ""
+
+    def __init__(self, returncode, stdout, stderr):
+        self.returncode = returncode
+        self.stdout = stdout
+        self.stderr = stderr
+
 @api.route('/create')
 class CreateData(Resource):
     def post(self):

@@ -2,7 +2,6 @@ import os
 import sys, getopt
 import schedule
 import logging
-import schedule
 import time
 import requests
 

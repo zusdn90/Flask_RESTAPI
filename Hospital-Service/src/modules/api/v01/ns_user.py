@@ -1,6 +1,5 @@
 import json
-
-
+import datetime
 from flask import Flask, request, jsonify, make_response, request
 from flask_restplus import Namespace, Resource, fields, reqparse
 from modules.setting import dbConnector
@@ -17,17 +16,29 @@ USER API (Patient)
 #################################################################
 """
 
+class Result(object):
+    returncode = 1
+    stdout = ""
+    stderr = ""
+
+    def __init__(self, returncode, stdout, stderr):
+        self.returncode = returncode
+        self.stdout = stdout
+        self.stderr = stderr
+
+
 @api.route('')
 class GetUsersInfo(Resource):    
-    @api.param('Date', 'Date')
+    @api.param('Date', 'enter_date')
     def get(self):
         try:            
             parser.add_argument('Date', type=str, help='admisstion date')
             params = parser.parse_args()
             logger.info_log("params : " + str(params))
 
-            sql = "select patient_name from Patient"
-            rows = db_class.executeAll(sql)
+            sql = "select patient_name from Patient where patient_code = %s"
+            convert_date = datetime.datetime.strptime(params['Date'], "%Y-%m-%d").date()
+            rows = db_class.executeAll(sql, convert_date)
 
             logger.info_log("[User List Data] : " + str(rows))
             
