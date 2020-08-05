@@ -25,7 +25,7 @@ cors = CORS(app, resources={
 
 blueprint = Blueprint('api', __name__, url_prefix='/api/v01')
 api = Api(blueprint, doc='/doc/', version= 1.0, 
-          title='HOSPITAL API', description='HOSPITAL REST API')
+          title='Employee API', description='Employee REST API')
 
 #공통 으로 사용되는 API
 common = api.namespace('common', description='Common API')

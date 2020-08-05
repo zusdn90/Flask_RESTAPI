@@ -12,7 +12,7 @@ api = Namespace('users', description = "USER API")
 
 """ 
 #################################################################
-USER API (Patient)
+USER API (Employee)
 #################################################################
 """
 
@@ -36,7 +36,7 @@ class GetUsersInfo(Resource):
             params = parser.parse_args()
             logger.info_log("params : " + str(params))
 
-            sql = "select patient_name from Patient where patient_code = %s"
+            sql = "select employee_name from Employee where employee_code = %s"
             convert_date = datetime.datetime.strptime(params['Date'], "%Y-%m-%d").date()
             rows = db_class.executeAll(sql, convert_date)
 
@@ -47,18 +47,18 @@ class GetUsersInfo(Resource):
         except Exception as e:            
             logger.error_log(str(e))           
 
-    @api.param('patient_code', 'patient code')
-    @api.param('patient_name', 'patient name')
-    @api.param('vital_code', 'vital code')
-    @api.param('vital_value', 'vital value')
-    @api.param('alert_info', 'alert info')
+    @api.param('employee_code', 'employee code')
+    @api.param('employee_name', 'employee name')
+    @api.param('address', 'address')
+    @api.param('salary', 'salary')
+    @api.param('phone_number', 'phone number')
     def post(self):
         try:
-            parser.add_argument('patient_code', type=str, help='Patient code')
-            parser.add_argument('patient_name', type=str, help='Patient name')
-            parser.add_argument('vital_code', type=str, help='Vital code')
-            parser.add_argument('vital_value', type=str, help='Vital name')
-            parser.add_argument('alert_info', type=str, help='Alert info')            
+            parser.add_argument('employee_code', type=str, help='employee code')
+            parser.add_argument('employee_name', type=str, help='employee name')
+            parser.add_argument('address', type=str, help='address')
+            parser.add_argument('salary', type=str, help='salary')
+            parser.add_argument('phone_number', type=str, help='phone_number')     
             params = parser.parse_args()
             logger.info_log("params : " + str(params))
 
@@ -66,11 +66,11 @@ class GetUsersInfo(Resource):
             logger.info_log("Request data : " + str(data))
 
             sql = """\
-            insert into Patient (patient_code, patient_name, vital_code, vital_value, alert_info, date) 
+            insert into Employee (employee_code, employee_name, address, salary, phone_number, date) 
                     values ( %s, %s, %s, %s, %s, now())
             """
 
-            rows = db_class.execute(sql, (data["user_code"], data["user_name"], data["vital_code"], data["vital_value"], data["alert_info"]))
+            rows = db_class.execute(sql, (data["employee_code"], data["employee_name"], data["address"], data["salary"], data["phone_number"]))
             
             db_class.commit()
             db_class.close()
@@ -85,10 +85,10 @@ class GetUsersInfo(Resource):
             db_class.close()
                         
 
-    @api.param('patient_code','paient code')
+    @api.param('employee_code','employee code')
     def patch(self):
         try:
-            parser.add_argument('patient_code', type=str, help='Patient code')
+            parser.add_argument('employee_code', type=str, help='Employee code')
             params = parser.parse_args()
             logger.info_log("params : " + str(params))
 
@@ -97,15 +97,15 @@ class GetUsersInfo(Resource):
             logger.info_log("Request data : " + str(data))
 
             sql = """\
-            update Patient set 
-                patient_name = %s,
-                vital_code = %s,
-                vital_value = %s,
-                alert_info = %s
-                where patient_code = %s
+            update Employee set 
+                employee_name = %s,
+                address = %s,
+                salary = %s,
+                phone_number = %s,                
+                where employee_code = %s
 
             """            
-            rows = db_class.execute(sql, (data["user_name"], data["vital_code"], data["vital_value"], data["alert_info"], data["user_code"]))
+            rows = db_class.execute(sql, (data["employee_name"], data["address"], data["salary"], data["phone_number"], data["employee_code"]))
             
             db_class.commit()
             db_class.close()
@@ -126,9 +126,9 @@ class GetUsersInfo(Resource):
             logger.info_log("Request data : " + str(data))
 
             sql = """\
-            delete from Patient where patient_code = %s
+            delete from Employee where employee_code = %s
             """            
-            rows = db_class.execute(sql, data["user_code"])
+            rows = db_class.execute(sql, data["employee_code"])
             
             db_class.commit()
             db_class.close()

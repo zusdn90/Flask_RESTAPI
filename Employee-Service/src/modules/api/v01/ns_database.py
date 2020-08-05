@@ -42,17 +42,17 @@ class CreateData(Resource):
         write_wb = Workbook()
     
         write_ws = write_wb.active
-        write_ws['A1'] = 'patient_code'
-        write_ws['B1'] = 'patient_name'
-        write_ws['C1'] = 'vital_code'
-        write_ws['D1'] = 'vital_value'
-        write_ws['E1'] = 'alert_info'
-        write_ws['F1'] = 'admission_date'
+        write_ws['A1'] = 'employee_code'
+        write_ws['B1'] = 'employee_name'
+        write_ws['C1'] = 'address'
+        write_ws['D1'] = 'salary'
+        write_ws['E1'] = 'phone_number'
+        write_ws['F1'] = 'date'
 
-        vital_code = ['v01','v02','v03','v04','v05']
+        phone_number = '010-1234-5678'
 
         for i in range(100):
-            write_ws.append([str(i+1), faker.name(),'v01',faker.random_int(),'',faker.date_this_year()])
+            write_ws.append([str(i+1), faker.name(),faker.email(),faker.random_int(),phone_number,faker.date_this_year()])
         
         write_wb.save(path + filename)
 
@@ -64,7 +64,7 @@ class InsertData(Resource):
         db_class = dbConnector.Database()
 
         try:
-            sql = 'insert into Patient values(%s, %s, %s, %s, %s, %s)'
+            sql = 'insert into employee_code values(%s, %s, %s, %s, %s, %s)'
     
             wb = load_workbook(path + filename, data_only=True)
             ws = wb['Sheet']
