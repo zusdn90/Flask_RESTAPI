@@ -61,3 +61,6 @@ CREATE TABLE Rank(
 ## 5. Test
 ### ● pytest라이브러리로 unit test
 
+## 6. To-do
+### ● 데이터 생성 서버 구축 - Django 프레임워크
+
