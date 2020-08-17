@@ -1,4 +1,5 @@
 import os
+import uuid
 import sys, getopt
 import schedule
 import logging
@@ -18,6 +19,9 @@ from modules.setting import log as logger
 
 # ============================ init Flask config ============================
 app = Flask(__name__, static_folder='static', template_folder='template')
+app.config['SECRET_KEY'] = uuid.uuid1()
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://matrix:matrix@localhost:3306/matrix'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 cors = CORS(app, resources={
   r"/api/*": {"origin": "*"},
