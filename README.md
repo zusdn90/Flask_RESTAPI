@@ -11,11 +11,11 @@
 CREATE TABLE Employee(    
     employee_code        VARCHAR(50) PRIMARY KEY NOT NULL,   /* 사원 코드 */ --PK
     employee_name        VARCHAR(50) NOT NULL ,              /* 사원 이름 */
-	dept_code			 VARCHAR(30) NOT NULL ,              /* 부서 코드 */
-	rank_code       	 VARCHAR(20) NOT NULL,  			 /* 직급 코드 */
+    dept_code		 VARCHAR(30) NOT NULL ,              /* 부서 코드 */
+    rank_code       	 VARCHAR(20) NOT NULL,  	     /* 직급 코드 */
     address         	 VARCHAR(50) ,                       /* 주소 */	
-	salary         	     INT(100) ,                       	 /* 연봉 */	
-	phone_number         VARCHAR(50) ,                       /* 전화번호 */	
+    salary         	 INT(100) ,                          /* 연봉 */	
+    phone_number         VARCHAR(50) ,                       /* 전화번호 */	
     date                 datetime NOT NULL                   /* 입사날짜 */    
 ) CHARSET=utf8;
 
@@ -32,7 +32,7 @@ CREATE TABLE Rank(
 ```
 /* 부서 정보 테이블 */
 CREATE TABLE Department(
-    dept_code      	VARCHAR(30) NOT NULL,      /* 부서코드 */ --PK
+    dept_code        VARCHAR(30) NOT NULL,      /* 부서코드 */ --PK
     dept_name        VARCHAR(20),              /* 부서명 */    
 ) CHARSET=utf8;
 
