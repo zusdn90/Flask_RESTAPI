@@ -1,3 +1,8 @@
 {
-    "python.pythonPath": "c:\\Python\\Venv\\Flask\\Scripts\\python.exe"
+    "python.pythonPath": "c:\\Python\\Venv\\Flask\\Scripts\\python.exe",
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint-flask",
+        "pylint-flask-sqlalchemy"
+    ]
 }
